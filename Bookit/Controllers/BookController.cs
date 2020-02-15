@@ -38,5 +38,43 @@ namespace Bookit.Controllers
             return RedirectToAction("Index");
         }
 
+        public IActionResult Details(int id)
+        {
+            var model = _db.Books.Find(id);
+            return View(model);
+        }
+
+        public IActionResult Edit(int id)
+        {
+            var model = _db.Books.Find(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Book model)
+        {
+
+            //_db.Entry<Book>(model).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _db.Entry(model).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Delete(int id)
+        {
+            var model = _db.Books.Find(id);
+            return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(Book model)
+        {
+
+            //_db.Entry<Book>(model).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+            _db.Entry(model).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+
     }
 }
